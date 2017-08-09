@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    {% for text in texts %}
+        <h3>{{ text[0] }}</h3>
+        <p>Lexical diversity: {{ text[1] }}</p>
+    {% else %}
+        <em>Unbelievable.  No entries here so far</em>
+    {% endfor %}
+
+{% endblock %}
