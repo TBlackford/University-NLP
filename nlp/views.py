@@ -5,7 +5,7 @@ from .db import get_db
 import nltk
 from nltk.book import *
 
-# List holds all the text corpuses
+# List holds all the text corpora
 text_list = [text1, text2, text3, text4, text5, text6, text7, text8, text9]
 
 
@@ -38,4 +38,3 @@ def add_entry():
     db.commit()
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
-

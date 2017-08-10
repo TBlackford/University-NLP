@@ -1,3 +1,3 @@
-graft flaskr/templates
-graft flaskr/static
-include flaskr/schema.sql
+graft nlp/templates
+graft nlp/static
+include nlp/schema.sql

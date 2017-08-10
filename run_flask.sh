@@ -1,1 +1,1 @@
-export FLASK_APP=nlp && export FLASK_DEBUG=true && flask run
+export FLASK_APP=nlp/nlp.py && export FLASK_DEBUG=true && flask run
