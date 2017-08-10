@@ -1,8 +1,9 @@
 # all the imports
 import sqlite3
 from flask import g
-from .nlp import app
+from nlp import app
 
+"""This file is only here for future reference"""
 
 def init_db():
     db = get_db()
