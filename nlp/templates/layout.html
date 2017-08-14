@@ -1,10 +1,42 @@
-<!doctype html>
-<title>NLP</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
-  <h1>NLP</h1>
-  {% for message in get_flashed_messages() %}
-    <div class=flash>{{ message }}</div>
-  {% endfor %}
-  {% block body %}{% endblock %}
-</div>
+<!-- HEAD -->
+{% include "common/head.html" %}
+<!-- END HEAD -->
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>NLP</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <br />
+
+            <!-- sidebar menu -->
+            {% include "common/navigation.html" %}
+            <!-- /sidebar menu -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        {% include 'common/top_navigation.html' %}
+        <!-- /top navigation -->
+
+        <!-- PAGE CONTENT -->
+        {% for message in get_flashed_messages() %}
+            <div class=flash>{{ message }}</div>
+        {% endfor %}
+
+        {% block body %}
+        {% endblock %}
+        <!-- END PAGE CONTENT -->
+
+        <!-- footer content -->
+        {% include "common/footer.html" %}
+        <!-- /footer content -->
+      </div>
+    </div>
+{% include "common/foot.html" %}

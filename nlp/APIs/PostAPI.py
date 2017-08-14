@@ -1,8 +1,9 @@
 from flask.views import MethodView
 
-# To create APIs with views and such
 
 class UserAPI(MethodView):
+
+    """To create APIs with views and such"""
 
     def get(self, user_id):
         if user_id is None:
