@@ -24,9 +24,25 @@ cosine = lambda v1, v2: dot(v1, v2) / (norm(v1) * norm(v2))
 
 
 @app.route('/')
-@app.route('/index')
 def show_entries():
     return render_template('index.html')
+
+
+@app.route('/universities')
+def show_uni_list():
+    return render_template('university_list.html')
+
+
+@app.route('/api/<string:first>/<string:second>')
+def compare_unis(first, second):
+    # This will print out
+    print("first: ", first)
+    print("first: ", second)
+    return render_template('index.html')
+
+
+
+
 
 
 """@app.route('/word2vec')
