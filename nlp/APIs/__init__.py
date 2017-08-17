@@ -1,1 +1,2 @@
-from .PostAPI import UserAPI
+from flask_restplus import Api
+
