@@ -1,0 +1,34 @@
+Crawling with Scrapy
+
+Install Anaconda
+Install Scrapy
+
+To start a new project:
+Open anaconda terminal
+Navigate to desired project location
+
+command: scrapy startproject myProjectName
+
+-> automatically generates a folder with the basic structure of the crawler.
+Inside will be, among other things, an items.py file, and a spiders folder
+
+Items.py
+This is where we specify the things, here known as items, that we want to scrape. It's our data model.
+
+Spiders:
+Detailed specs for the crawl. eg, the urls, methods for putting findings into the datamodel
+
+To run project:
+Open anaconda terminal
+Navigate to project directory
+
+command: scrapy crawl myProjectName
+OR
+to save to results to json file:
+command: scrapy crawl myProjectName -o myFileName.json -t json
+
+to view file:
+command: vi myFileName.json
+
+
+
