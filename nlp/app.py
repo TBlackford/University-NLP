@@ -22,7 +22,7 @@ api = Api(
     app,
     title='University NLP',
     version='1.0',
-    doc='/doc/',
+    doc='/api/docs/',
 )
 
 # load config from this file , __init__.py

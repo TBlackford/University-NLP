@@ -2,6 +2,7 @@ from nlp import app, api
 import matplotlib.pyplot as plt
 from flask import request, make_response
 from flask.views import MethodView
+from flask_restplus import Resource, Namespace
 
 from io import BytesIO
 import random
@@ -10,8 +11,10 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from matplotlib.dates import DateFormatter
 
+ns = Namespace('/img', "Matplotlib Image Renderer API")
 
-class ImageAPI(MethodView):
+@ns.route('/plot')
+class ImageAPI(Resource):
     """API used for RESTful rendering of matplotlib images"""
 
     def make_image(self, fig):
@@ -43,5 +46,8 @@ class ImageAPI(MethodView):
         ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
 
         return self.make_image(fig)
+
+
+api.add_namespace(ns)
 
 #app.add_url_rule('/img/', view_func=ImageAPI.as_view('img'))
