@@ -8,8 +8,8 @@ import re
 #write all results from an individual page to a row of a text file
 class MySpider(BaseSpider):
     name = "university_crawler" #Project name
-    allowed_domains = ['www.yale.edu'] #The bounds of the project
-    start_urls = ["https://www.yale.edu/"] #The starting page for the project
+    allowed_domains = ['www.yale.edu/'] #The bounds of the project
+    start_urls = ["ttps://www.yale.edu/"] #The starting page for the project
     
     #Each dictionary item should represent a single page:
     #   with items['text'] as a concatenated string text elements
@@ -28,6 +28,8 @@ class MySpider(BaseSpider):
         for item in results:
             result = BasicCrawlerItem() 
             rawText = BeautifulSoup(item).getText() #use beautifulSoup to get rid of encodings
+            rawText = rawText.strip('\n') #strip newline
+            rawText = rawText.strip('\t') #strip tabs
             result["text"] = rawText #Put the text into the BasicCrawlerItem item "text"
             pageText += (rawText + " ") #Append the text to the pageText
             result["location_url"] = response.url #Put the url into the BasicCrawlerItem item "location_url"
@@ -38,7 +40,8 @@ class MySpider(BaseSpider):
         
         #Write to a text file
         with open('yale.txt', 'a') as textWriter:
-            textWriter.write("link: " + self.items['link'] + 'name: ' + self.items['text'])
+            textWriter.write(self.items['text'])
+            #textWriter.write("link: " + self.items['link'] + 'name: ' + self.items['text'])
              
         #List of links already visited: used to avoid re-visiting pages
         visited_links=[]
