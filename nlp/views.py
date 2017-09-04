@@ -6,16 +6,22 @@ from io import BytesIO
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 
+# NLTK
+import nltk
+# Removing this will improve performance maybe
+from nltk.book import *
+
+# Spacy
+import numpy
+import spacy.en
+from collections import Counter
+
+all_books = [text1, text2, text3, text4, text5, text6, text7, text8, text9]
+
 
 # This function doesn't work for some reason
 @app.route('/')
-def index():
-    return render_template('index.html')
-
-
-# This function does
-@app.route('/index')
-def show_index():
+def index_page():
     return render_template('index.html')
 
 
@@ -23,9 +29,31 @@ def show_index():
 def show_uni_list():
     return render_template('university_list.html')
 
+
+def retrieve_uni_corpus(uni):
+    # For now, just get a random NLTK corpus
+    #return random.choice(all_books)
+    return text1
+
 ###################################################################################
 
 ns = Namespace('api', description='API Operations')
+
+@ns.route('/relfreq/<int:uni>/<string:word>')
+# Descriptions of the variables
+@ns.param('uni', 'University')
+@ns.param('word', 'Word to check against Frequency')
+class RelativeFrequency(Resource):
+    def get(self, uni, word):
+        uni = retrieve_uni_corpus(uni)
+        freq1 = FreqDist(uni)
+        return {word: (freq1[word] / len(uni)) * 100, "corpus": str(uni)}
+
+
+@ns.route('/wordnet/<int:uni>/<string:word>')
+class WordSimilarities(Resource):
+    def get(self, uni, word):
+        pass
 
 
 @ns.route('/universities')
@@ -36,25 +64,7 @@ class Universities(Resource):
         data = json.load(open(json_url))
         return jsonify(data)
 
-    # For updating the JSON -- Maybe not here though?
-    def update(self, name, rank, website):
-        pass
-
-
-@ns.route('/hello')
-class HelloWorld(Resource):
-    def get(self):
-        return {"Hello": "World"}
-
-    def post(self):
-        return {"Hello": "World"}
-
-
-@ns.route('/id/<int:id>')
-@ns.param('id', 'ID Thing')
-class ID(Resource):
-    def get(self, id):
-        return {"ID" : id}
+###################################################################################
 
 
 ns_img = Namespace('img', "Matplotlib Image Renderer API")

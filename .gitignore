@@ -98,9 +98,7 @@ ENV/
 .mypy_cache/
 
 # IDEA
-<<<<<<< HEAD
-.idea/
-=======
+
 .idea/
 
 /.vagrant
@@ -112,8 +110,6 @@ docs/build
 *egg-info
 .tox
 venv
-build
-dist
 .idea
 htmlcov/
 .coverage
@@ -122,4 +118,3 @@ htmlcov/
 
 # Windows
 Thumbs.db
->>>>>>> 39bb9d778acc48eabaf1d0b6bd8e92f3db97c9ed
