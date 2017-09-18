@@ -4,7 +4,7 @@ from scrapy.http import Request
 import re
 
 class ToScrapeSpiderXPath(scrapy.Spider):
-    name = 'yale'
+    name = 'universityText'
     allowed_domains = ['www.yale.edu'] #The bounds of the project
     start_urls = ["https://www.yale.edu/"] #The starting page for the project
 
