@@ -14,6 +14,24 @@
 
                 <div class="clearfix"></div>
 
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Dropzone multiple file uploader</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                            <div class="x_content">
+                                <p>Drag multiple files to the box below for multi upload or click to select files.</p>
+                                <form action="/upload" class="dropzone"></form>
+                                <br />
+                                <br /> <!-- Fix this so it can upload -->
+                                <br />
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="">
                   <!--<div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="x_panel">
@@ -64,6 +82,12 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Select University</label>
                                             <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <form action="/upload" method=post enctype=multipart/form-data>
+                                                    <p>
+                                                        <input type=file name=file>
+                                                        <input type=submit value=Upload>
+                                                    </p>
+                                                </form>
                                                 <select class="select2_single form-control uni_list" tabindex="-1">
                                                     <option></option>
                                                 </select>
@@ -88,6 +112,12 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Select University</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <form action="" method=post enctype=multipart/form-data>
+                                                <p>
+                                                    <input type=file name=file>
+                                                    <input type=submit value=Upload>
+                                                </p>
+                                            </form>
                                             <select class="select2_single form-control uni_list" tabindex="-1">
                                                 <option></option>
                                             </select>
@@ -95,23 +125,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Word to Compare</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="form-group pull-right top_search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -142,6 +155,65 @@
                 <div class="x_panel">
                     <div class="x_title">
                       <h2><i class="fa fa-bars"></i> Word Frequency</h2>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <div role="tabpanel" class="tab-pane fade active in">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">% of text</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" readonly="readonly" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Word to Compare</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="form-group pull-right top_search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                      <h2><i class="fa fa-bars"></i> Word Similarities</h2>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <div role="tabpanel" class="tab-pane fade active in">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">% of text</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" readonly="readonly" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                      <h2><i class="fa fa-bars"></i> Word Similarities</h2>
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
