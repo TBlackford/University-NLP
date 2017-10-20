@@ -1,15 +1,12 @@
-$.get("/api/universities", function(data) {
+Dropzone.autoDiscover = false;
 
-    var content = "";
+$(function() {
+    var upload_route = "/upload";
+    var upload_div = "#fileupload";
 
-    var unis = data.universities;
+    var dropzone = new Dropzone(upload_div, { url: upload_route});
 
-    for(var i = 0; i < unis.length; i++) {
-
-        content += "<option value='" + unis[i].rank + "'>" + unis[i].name + "</option>"
-
-    }
-
-    $(".uni_list").append(content);
-
+    dropzone.on("success", function(file) {
+        $(".uni_list").append("<option value=" + file.name + ">" + file.name + "</option>");
+    });
 });
