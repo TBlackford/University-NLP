@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, make_response, request, send_file, json, jsonify
 from flask_restplus import Resource, Namespace
 from nlp import app, api
-import os
+import os, sys, logging
 from werkzeug.utils import secure_filename
 import warnings
 warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
@@ -40,14 +40,17 @@ def clean(stop_words, word):
 def get_sentences(file):
     sentences = []
 
-    with open(file, 'r') as inpFile:
-        x = inpFile.readlines()
-        for line in x:
-            if line is not None or line != '\n':
-                words = line.split()
-                words = map(lambda x: clean(stopwords, x), words)
-                words = list(filter(lambda x: True if len(x) > 0 else False, words))
-                sentences.append(words)
+    with open("./nlp/tmp/" + file) as f:
+        content = f.readlines()
+        sentences.append(content)
+
+
+    """for line in file:
+        if line is not None or line != '\n':
+            words = line.split()
+            words = map(lambda x: clean(stopwords, x), words)
+            words = list(filter(lambda x: True if len(x) > 0 else False, words))
+            sentences.append(words)"""
 
     return sentences
 
@@ -59,55 +62,37 @@ stopwords = get_stopwords(stopword_file)
 
 ###################################################################################
 
-# I feel like I should save this to disk
-class UniModel:
 
-    # Includes stopwords
-    tokens = []
+def tokenise(to_tokenise, remove_stopwords=False):
+    path = os.path.join(SITE_ROOT, 'tmp', to_tokenise)
 
-    # Excludes stopwords
-    sentences = []
+    f = open(path, 'rU').read()
 
-    def __init__(self, file=""):
-        if(file != ""):
-            self.tokenise(file)
+    tokens = nltk.word_tokenize(f)
 
-    def tokenise(self, to_tokenise):
-        path = os.path.join(SITE_ROOT, 'tmp', to_tokenise)
-
-        f = open(path, 'rU').read()
-
-        self.tokens = nltk.word_tokenize(f)
-
+    if not remove_stopwords:
         # Now to remove all the stop words
-        self.sentences = get_sentences(to_tokenise)
+        sentences = get_sentences(to_tokenise)
+        return sentences
+    else:
+        return tokens
 
 
-    def get_word_freq(self, word, remove_stopwords=False):
-        if(remove_stopwords):
-            freq1 = nltk.FreqDist(self.sentences)
-            return (freq1[word] / len(self.sentences)) * 100
-        else:
-            freq1 = nltk.FreqDist(self.tokens)
-            return (freq1[word] / len(self.tokens)) * 100
-
-
-def make_uni_model(key, corpus):
-    uni_models[key] = UniModel(corpus)
-
-# Dictionary to hold the uni text file key and the uni model for faster processing
-uni_models = {}
+def get_word_freq(word, sentences):
+    freq1 = nltk.FreqDist(sentences)
+    return (freq1[word] / len(sentences)) * 100
 
 def retrieve_uni_corpus(uni):
     path = os.path.join(SITE_ROOT, 'tmp', uni)
 
     f = open(path, 'rU').read()
 
-    tokens = nltk.word_tokenize(f)
+    #tokens = nltk.word_tokenize(f)
 
-    return tokens
+    return f
 
 ###################################################################################
+# Simple pages
 
 @app.route('/')
 def index_page():
@@ -124,10 +109,24 @@ def show_uni_list():
 
 
 ###################################################################################
+# Model stuff
 
-ns = Namespace('api', description='API Operations')
+# None of this is done at all
+def make_word2vec_model(filename):
+    #corpus = retrieve_uni_corpus(filename)
 
-### File Upload ###
+    sentences = get_sentences(filename)
+
+    # Make a Word2Vec model
+    model = Word2Vec(list(sentences), size=100, window=5, min_count=1, workers=4)
+
+    # Save the model
+    model.wv.save_word2vec_format("./nlp/models/model_" + filename, binary=True)
+
+    logging.warning(sentences)
+
+###################################################################################
+# File Upload
 
 ALLOWED_EXTENSIONS = set(['txt', 'csv'])
 UPLOAD_FOLDER = '/tmp/'
@@ -152,13 +151,22 @@ def upload_file():
         return redirect(request.url)
     if(file and allowed_file(file.filename)):
         filename = secure_filename(file.filename)
+        # Save the raw file to the tmp directory
         file.save(os.path.join(SITE_ROOT, 'tmp', filename))
+
+        make_word2vec_model(filename)
+
         return redirect(url_for('index_page'))
 
+###################################################################################
+# API Namespace
+
+ns = Namespace('api', description='API Operations')
 
 @ns.route('/upload_files')
 class ShowUploadedFiles(Resource):
     def get(self):
+        logging.warning("See this message in Flask Debug Toolbar!")
         path = os.path.join(SITE_ROOT, 'tmp')
 
         files = os.listdir(path)
@@ -174,10 +182,11 @@ class ShowUploadedFiles(Resource):
 @ns.param('word', 'Word to check against Frequency')
 class RelativeFrequency(Resource):
     def get(self, uni, word):
+        logging.warning("See this message in Flask Debug Toolbar!")
         if(word not in stopwords):
-            tokenised_uni = retrieve_uni_corpus(uni)
-            freq1 = nltk.FreqDist(tokenised_uni)
-            return {word: (freq1[word] / len(tokenised_uni)) * 100, "corpus": str(uni)}
+            corpus = retrieve_uni_corpus(uni)
+            tokenised_uni = tokenise(corpus)
+            return {word: get_word_freq(word, tokenised_uni), "corpus": str(uni)}
         else:
             return {word: "Word is in the list of ignored words", "corpus": str(uni)}
 
@@ -185,17 +194,19 @@ class RelativeFrequency(Resource):
 @ns.route('/universities')
 class Universities(Resource):
     def get(self):
+        logging.warning("See this message in Flask Debug Toolbar!")
         json_url = os.path.join(SITE_ROOT, 'data', 'data.json')
         data = json.load(open(json_url))
         return jsonify(data)
 
 
-@ns.route('/similarity/<int:uni>/<string:word>')
+@ns.route('/similarity/<string:uni>/<string:word>')
 class WordSimilarities(Resource):
     def get(self, uni, word):
-        sentences = get_sentences(retrieve_uni_corpus(uni), stopwords)
+        logging.warning("See this message in Flask Debug Toolbar!")
 
-        model = Word2Vec(sentences, window=10, size=100, workers=4, min_count=5, hs=1, negative=0)
+        path = os.path.join(SITE_ROOT, 'models', "model_" + uni)
+        model = gensim.models.KeyedVectors.load_word2vec_format(path, binary=True, unicode_errors='ignore')
 
         most_similar = model.most_similar(positive=[word])
 
