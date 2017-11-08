@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
 
+        <script src="{{ url_for('static', filename='js/universities.js') }}"></script>
+
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
@@ -19,11 +21,11 @@
                         <tr>
                           <th>#</th>
                           <th>Name</th>
-                          <th>Location</th>
+                          <th>Website</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
+                      <tbody id="uni_body">
+                        <!--<tr>
                           <th scope="row">1</th>
                           <td>Mark</td>
                           <td>Otto</td>
@@ -37,7 +39,7 @@
                           <th scope="row">3</th>
                           <td>Larry</td>
                           <td>the Bird</td>
-                        </tr>
+                        </tr>-->
                       </tbody>
                     </table>
 

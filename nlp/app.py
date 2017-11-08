@@ -17,12 +17,13 @@ class Api(BaseApi):
     def base_path(self):
         return ''
 
+
 # Create the API instance using the above class
 api = Api(
     app,
     title='University NLP',
     version='1.0',
-    doc='/doc/',
+    doc='/api/docs/',
 )
 
 # load config from this file , __init__.py
@@ -37,5 +38,6 @@ app.config.update(dict(
 
 app.config.from_envvar('NLP_SETTINGS', silent=True)
 
+
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=False, threaded=True)

@@ -1,16 +1,12 @@
-function openCity(cityName,elmnt,color) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].style.backgroundColor = "";
-    }
-    document.getElementById(cityName).style.display = "block";
-    elmnt.style.backgroundColor = color;
+Dropzone.autoDiscover = false;
 
-}
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+$(function() {
+    var upload_route = "/upload";
+    var upload_div = "#fileupload";
+
+    var dropzone = new Dropzone(upload_div, { url: upload_route});
+
+    dropzone.on("success", function(file) {
+        $(".uni_list").append("<option value=" + file.name + ">" + file.name + "</option>");
+    });
+});
