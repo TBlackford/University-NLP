@@ -1,7 +1,8 @@
 from flask import Flask, render_template
 from flask_restplus import Api as BaseApi
+import os
 
-app = Flask(__name__) # create the application instance
+webapp = Flask(__name__) # create the application instance
 
 # Hacky way around the '/' not working.
 class Api(BaseApi):
@@ -20,24 +21,25 @@ class Api(BaseApi):
 
 # Create the API instance using the above class
 api = Api(
-    app,
+    webapp,
     title='University NLP',
     version='1.0',
     doc='/api/docs/',
 )
 
 # load config from this file , __init__.py
-app.config.from_object(__name__)
+webapp.config.from_object(__name__)
 
 # Load default config and override config from an environment variable
-app.config.update(dict(
+webapp.config.update(dict(
     SECRET_KEY='development key',
     USERNAME='admin',
     PASSWORD='default'
 ))
 
-app.config.from_envvar('NLP_SETTINGS', silent=True)
+webapp.config.from_envvar('NLP_SETTINGS', silent=True)
 
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False, threaded=True)
+    webapp.run(debug=True, use_reloader=False, threaded=True)

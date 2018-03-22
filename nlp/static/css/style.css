@@ -39,7 +39,7 @@
   border-radius: 50%;
 }
 .nav-sm .main_container .top_nav {
-  display: block;
+  display: absolute;
   margin-left: 70px;
   z-index: 2;
 }
@@ -4009,3 +4009,32 @@ ul.notifications {
   border: 1px solid #e5e5e5;
 }
 /** /Dropzone.js **/
+
+.loader-container {
+    display: table;
+    position: absolute;
+    min-height: 80%;
+    min-width: 80%;
+}
+
+.middle-loader-container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.loader {
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 16px solid #73879c; /* Light grey */
+    border-top: 16px solid #2a3f54; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

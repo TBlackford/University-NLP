@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <script>
+
+        $(function() {
+
+            console.log({{ value }});
+
+        });
+
+    </script>
+
+    <div class="right_col" role="main">
+
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Loading...</h3>
+            </div>
+        </div>
+
+        <div class="loader-container">
+            <div class="middle-loader-container ">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

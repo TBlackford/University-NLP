@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Report</h3>
+                </div>
+            <div class="clearfix"></div>
+            </div>
+        <div class="clearfix"></div>
+            <div class="">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-bars"></i> First University</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="top50words" style="display:none;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Word</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="top50words_one">
+                                    </tbody>
+                                </table>
+                                <hr>
+                            </div>
+
+                            <div class="similarities" style="display:none;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Word</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="similarities_one">
+                                    </tbody>
+                                </table>
+
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-bars"></i> Second University</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="top50words" style="display:none;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Word</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="top50words_two">
+                                    </tbody>
+                                </table>
+
+                                <hr>
+                            </div>
+
+
+                            <div class="similarities" style="display:none;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Word</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="similarities_two">
+                                    </tbody>
+                                </table>
+
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        // To get:
+        // - Uni array                      [x]
+        // - Word to model against          [ ]
+        // - Second word for similarity     [ ]
+        // - TSNE words (separate by comma) [ ]
+        // - Word frequency                 [ ]
+        // - Top 50 words                   [x]
+
+        payload = {{ payload|safe }}
+
+        console.log(payload)
+
+        var top50words = payload.top50words;
+        var similarities = payload.similarities;
+
+        if( top50words ) {
+            $('.top50words').css('display', 'block');
+
+            // Do the top 50
+            for(var i = 0; i < top50words.length; i++) {
+                var uni = top50words[i];
+                content = "";
+
+                // Add header for uni
+                for(var j = 0; j < uni.list.length; j++) {
+                    content += "<tr><th scope='row'>" + (j + 1) + "</th>" +
+                    "<td>" + uni.list[j].word + "</td>" +
+                    "<td>" + uni.list[j].occurrance + "</td></tr>";
+                }
+
+                if( i == 1 ) {
+                    $("#top50words_one").append(content);
+                } else {
+                    $("#top50words_two").append(content);
+                }
+                //$("#" + uni.name).append(content);
+            }
+        }
+
+        if( similarities ) {
+            $('.similarities').css('display', 'block');
+
+            var most_similar = similarities.most_similar;
+
+            // Get the similarities
+            for(var i = 0; i < most_similar.length; i++) {
+                var uni = most_similar[i];
+                content = "";
+
+                // Add header for uni
+                for(var j = 0; j < uni.list.length; j++) {
+                    content += "<tr><th scope='row'>" + (j + 1) + "</th>" +
+                    "<td>" + uni.list[j].word + "</td>" +
+                    "<td>" + uni.list[j].similarity + "</td></tr>";
+                }
+
+                if( i == 1 ) {
+                    $("#similarities_one").append(content);
+                } else {
+                    $("#similarities_two").append(content);
+                }
+                //$("#" + uni.name).append(content);
+            }
+        }
+
+    </script>
+
+{% endblock %}

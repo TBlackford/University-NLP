@@ -15,63 +15,54 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Dropzone multiple file uploader</h2>
+                            <h2>File Uploader</h2>
                             <div class="clearfix"></div>
                         </div>
-                            <div class="x_content">
-                                <p>Drag multiple files to the box below for multi upload or click to select files.</p>
-                                <form action="/upload" class="dropzone" id="fileupload"></form>
-                                <br />
-                                <br />
-                            </div>
-                        <button id="send" type="submit" class="btn btn-success">Refresh Dropdowns</button>
+                        <div class="x_content">
+                            <p>Drag multiple files to the box below for multi upload or click to select files.</p>
+                            <form action="/upload" class="dropzone" id="fileupload"></form>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="">
-                  <!--<div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="x_panel">
-                      <div class="x_title">
-                        <h2><i class="fa fa-bars"></i> Tabs</h2>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="x_content">
-                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                                synth. Cosby sweater eu banh mi, qui irure terr.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <!--- FORM START --->
 
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="x_panel">
-                      <div class="x_title">
-                        <h2><i class="fa fa-bars"></i> Tabs</h2>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="x_content">
-                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                                synth. Cosby sweater eu banh mi, qui irure terr.</p>
+            <form class="form-horizontal form-label-left" action="/report" method="post">
+
+                <div class="">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-bars"></i> First University</h2>
+                                <div class="clearfix"></div>
                             </div>
-                          </div>
+                            <div class="x_content">
+                                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                    <div role="tabpanel" class="tab-pane fade active in">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Select University</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <select class="select2_single form-control uni_list" name="uni-1" tabindex="-1">
+                                                    <option></option>
+                                                    {% for file in files %}
+                                                        <option value='{{ file }}'>{{ file }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
-              <div class="clearfix"></div>-->
+                </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2><i class="fa fa-bars"></i> First University</h2>
-                            <div class="clearfix"></div>
+                          <h2><i class="fa fa-bars"></i> Second University</h2>
+                          <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -79,7 +70,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Select University</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <select class="select2_single form-control uni_list" tabindex="-1">
+                                            <select class="select2_single form-control uni_list" name="uni-2" tabindex="-1">
                                                 <option></option>
                                                 {% for file in files %}
                                                     <option value='{{ file }}'>{{ file }}</option>
@@ -92,134 +83,98 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                      <h2><i class="fa fa-bars"></i> Second University</h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                            <div role="tabpanel" class="tab-pane fade active in">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Select University</label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select class="select2_single form-control uni_list" tabindex="-1">
-                                            <option></option>
-                                            {% for file in files %}
-                                                <option value='{{ file }}'>{{ file }}</option>
-                                            {% endfor %}
-                                        </select>
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                </div>
+
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                     <div class="x_panel">
+                        <div class="x_title">
+                          <h2><i class="fa fa-bars"></i> Options</h2>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="form-group">
+                                <div class="col-md-12 center-margin">
+                                    <!-- Right -->
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label class="control-label col-md-12">Word to Model Against</label>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <textarea id="first-word" class="date-picker form-control col-md-12 col-xs-12" rows="1" name="first-word" placeholder="Enter a word"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label class="control-label col-md-12">Similarity between two words</label>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <textarea  id="second-word" class="date-picker form-control col-md-12 col-xs-12" rows="1" name="second-word" placeholder="Enter another word"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label class="control-label col-md-12">TSNE Visualisation</label>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <textarea id="tsne-inputs" class="date-picker form-control col-md-6 col-xs-12" rows="1" name="tsne-visualisation" placeholder="Enter additional words for TSNE to visualise. Separate words by commas."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-8">Show Word Frequency</label>
+                                            <div class="col-md-2">
+                                                <label>
+                                                    <input type="checkbox" name="show-wf" class="js-switch" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-8">Show Most Similar Words</label>
+                                            <div class="col-md-2">
+                                                <label>
+                                                    <input type="checkbox" name="most-similar" class="js-switch" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-8">Show Top 50 Words</label>
+                                            <div class="col-md-2">
+                                                <label>
+                                                    <input type="checkbox" name="top-50-words" class="js-switch" />
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                      <h2><i class="fa fa-bars"></i> Word Frequency</h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                            <div role="tabpanel" class="tab-pane fade active in">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">% of text</label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" readonly="readonly" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-2 col-sm-12 col-xs-12">
                 </div>
-            </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                      <h2><i class="fa fa-bars"></i> Word Frequency</h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                            <div role="tabpanel" class="tab-pane fade active in">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">% of text</label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" readonly="readonly" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                     <div class="x_panel">
+                        <div class="x_title">
+                          <h2><i class="fa fa-bars"></i> Submit</h2>
+                          <div class="clearfix"></div>
                         </div>
-                    </div>
+                        <div class="x_content">
+                            <div class="col-md-4"></div>
+                            <input type="submit" class="col-md-4 btn btn-primary btn-lg" />
+                            <div class="col-md-4"></div>
+                        </div>
+                     </div>
                 </div>
-            </div>
+            </form>
 
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Word to Compare</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="form-group pull-right top_search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                      <h2><i class="fa fa-bars"></i> Word Similarities</h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                            <div role="tabpanel" class="tab-pane fade active in">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">% of text</label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" readonly="readonly" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                      <h2><i class="fa fa-bars"></i> Word Similarities</h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                            <div role="tabpanel" class="tab-pane fade active in">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">% of text</label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" readonly="readonly" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="clearfix"></div>
         </div>
@@ -227,11 +182,11 @@
     </div>
     <!-- /page content -->
 
-        <!-- Dropzone.js -->
-        <link href="{{ url_for('static', filename='vendors/dropzone/dist/min/dropzone.min.css') }}" rel="stylesheet">
-        <!-- Dropzone.js -->
-        <script src="{{ url_for('static', filename='vendors/dropzone/dist/min/dropzone.min.js') }}"></script>
+    <!-- Dropzone.js -->
+    <link href="{{ url_for('static', filename='vendors/dropzone/dist/min/dropzone.min.css') }}" rel="stylesheet">
+    <!-- Dropzone.js -->
+    <script src="{{ url_for('static', filename='vendors/dropzone/dist/min/dropzone.min.js') }}"></script>
 
-        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
 {% endblock %}
