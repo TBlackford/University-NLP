@@ -25,6 +25,50 @@ def index_page():
 
 @app.webapp.route('/report', methods=['POST'])
 def report_page():
+    def _top_50_words():
+        most_common = [top50words(unis[0]), top50words(unis[1])]
+
+        payload.update({"top50words": most_common})
+
+    def _most_similar():
+        """Gets the most similar word"""
+        similar = []
+        # Get the text from the first word
+        word = data['most-similar']
+
+        if word == '':
+            return
+
+        # Bundle the words
+        positive = [word]
+        negative = []  # TODO
+        # Get the similarities
+        similar.append(most_similar(unis[0], positive, negative))
+        similar.append(most_similar(unis[1], positive, negative))
+
+        payload.update({"most_similar": {"similar": similar, "positive": positive}})
+
+    def _similarity():
+        """Judges the similarity between two words"""
+        similar = []
+        # Get the text from the first word
+        first_word = data['similar-word-1']
+        second_word = data['similar-word-2']
+
+        if first_word == '' or second_word == '':
+            return
+
+        similar.append(similarity(unis[0], first_word, second_word))
+        similar.append(similarity(unis[1], first_word, second_word))
+
+        payload.update({"similarity": similar})
+
+    def _do_check(func, item):
+        if all(i in data for i in item):
+            func()
+
+    #######################################################
+
     data = request.form
 
     # add in all unis
@@ -47,31 +91,16 @@ def report_page():
         if len(unis) < 2:
             redirect('/')
         else:
-            # Get top 50 words info
-            if 'top-50-words' in data:
-                logging.warning("TOP 50 WORDS")
-
-                most_common = []
-                most_common.append(top50words(unis[0]))
-                most_common.append(top50words(unis[1]))
-                logging.warning(most_common)
-                payload.update({"top50words": most_common})
+            logging.warning(data)
 
             # Get the most similar words
-            if data['most-similar']:
-                similar = []
-                # Get the text from the first word
-                first_word = data['first-word']
-                second_word = data['second-word']
+            _do_check(_most_similar, ['most-similar'])
 
-                # Bundle the words
-                positive = [first_word, second_word]
-                negative = [] #TODO
-                # Get the similarities
-                similar.append(most_similar(unis[0], positive, negative))
-                similar.append(most_similar(unis[1], positive, negative))
+            # Check the similarity between two words
+            _do_check(_similarity, ['similar-word-1', 'similar-word-2'])
 
-                payload.update({"similarities": {"most_similar": similar, "positive": positive}})
+            # Get top 50 words info
+            _do_check(_top_50_words, ['top-50-words'])
 
 
     return render_template('report.html', payload=payload)

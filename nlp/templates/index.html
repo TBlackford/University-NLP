@@ -98,16 +98,20 @@
                                 <div class="col-md-12 center-margin">
                                     <!-- Right -->
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label class="control-label col-md-12">Word to Model Against</label>
+                                        <label class="control-label col-md-12">Most similar words</label>
                                         <div class="form-group col-md-12 col-sm-12">
-                                            <textarea id="first-word" class="date-picker form-control col-md-12 col-xs-12" rows="1" name="first-word" placeholder="Enter a word"></textarea>
+                                            <textarea id="most-similar" class="date-picker form-control col-md-12 col-xs-12" rows="1" name="most-similar" placeholder="Enter a word"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <label class="control-label col-md-12">Similarity between two words</label>
-                                        <div class="form-group col-md-12 col-sm-12">
-                                            <textarea  id="second-word" class="date-picker form-control col-md-12 col-xs-12" rows="1" name="second-word" placeholder="Enter another word"></textarea>
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <textarea  id="similar-word-1" class="date-picker form-control col-md-6 col-xs-6" rows="1" name="similar-word-1" placeholder="Enter first word"></textarea>
+
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <textarea  id="similar-word-2" class="date-picker form-control col-md-6 col-xs-6" rows="1" name="similar-word-2" placeholder="Enter second word"></textarea>
                                         </div>
                                     </div>
 
@@ -115,28 +119,6 @@
                                         <label class="control-label col-md-12">TSNE Visualisation</label>
                                         <div class="form-group col-md-12 col-sm-12">
                                             <textarea id="tsne-inputs" class="date-picker form-control col-md-6 col-xs-12" rows="1" name="tsne-visualisation" placeholder="Enter additional words for TSNE to visualise. Separate words by commas."></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-8">Show Word Frequency</label>
-                                            <div class="col-md-2">
-                                                <label>
-                                                    <input type="checkbox" name="show-wf" class="js-switch" />
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-8">Show Most Similar Words</label>
-                                            <div class="col-md-2">
-                                                <label>
-                                                    <input type="checkbox" name="most-similar" class="js-switch" />
-                                                </label>
-                                            </div>
                                         </div>
                                     </div>
 

@@ -1,15 +1,15 @@
 from flask import Flask, redirect, url_for, render_template, make_response, request, send_file, json, jsonify
 from flask_restplus import Resource, Namespace
 from nlp import app
-import os, sys, logging, pickle
+import os, sys, logging, pickle, csv
 from werkzeug.utils import secure_filename
-import gensim
-from gensim.models.word2vec import Word2Vec
-from gensim.models.keyedvectors import KeyedVectors
 from sklearn.manifold import TSNE
 import warnings
 warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
 warnings.filterwarnings(action='ignore', category=DeprecationWarning, module='gensim')
+import gensim
+from gensim.models.word2vec import Word2Vec
+from gensim.models.keyedvectors import KeyedVectors
 import re
 
 # NLTK
@@ -44,7 +44,7 @@ class UniModel:
             try:
                 stop_words_temp = map(lambda x: re.sub('\n', '', x), lines)
             except:
-                logging.warning("Exception ignored")
+                logging.warning("Exception ignored in stopwords")
             return list(stop_words_temp)
 
     def clean(self, word):
@@ -61,7 +61,7 @@ class UniModel:
         Creates a list with every sentence in the corpus
 
         :param path: path to the file
-        """
+
         logging.warning(path)
         with open(path, 'r', encoding="utf-8") as inpFile:
             file = inpFile.readlines()
@@ -71,7 +71,24 @@ class UniModel:
                     words = map(lambda word: self.clean(word), words)
                     words = list(filter(lambda word: True if len(word) > 0 else False, words))
                     words = list(filter(lambda word: True if word != '' else False, words))
-                    self.sentences.append(words)
+                    self.sentences.append(words)"""
+        csv.field_size_limit(2147483647)
+        with open(path, 'r', newline='', encoding="utf-8") as inpFile:
+
+            x = csv.reader(inpFile, delimiter=',', quotechar='"')
+
+            wordThreshold = 5  # Important: filter out sentences with less than wordThreshold words
+
+            for csvEntry in x:
+                if len(csvEntry) > 1:
+                    lines = csvEntry[1].split('\n')  # csvEntry[0] is url
+                    for line in lines:
+                        words = line.split()
+                        words = map(lambda x: self.clean(x), words)
+                        words = list(filter(lambda x: True if len(x) > 0 else False, words))
+                        if len(words) > wordThreshold:  # Important: filter out sentences with less than wordThreshold words
+                            self.sentences.append(words)
+            return self.sentences
 
 
 ###################################################################################
@@ -82,11 +99,11 @@ class NLTKModel(UniModel):
     def __init__(self, filename="", remove_stopwords=True):
         super().__init__(remove_stopwords)
 
+        self.stopword_file = os.path.join(app.SITE_ROOT, 'data', 'long_stopwords.txt')
+
         if filename != "":
             self.filename = filename
             self.make_corpus(os.path.join(app.SITE_ROOT, filename))
-
-        self.stopword_file = os.path.join(app.SITE_ROOT, 'data', 'long_stopwords.txt')
 
     def get_file(self):
         path = os.path.join(app.SITE_ROOT, self.filename)
@@ -158,7 +175,7 @@ class Word2VecModel(UniModel):
 
         if filename != "":
             self.filename = filename
-            self.make_corpus(os.path.join(app.SITE_ROOT, "./tmp/" + self.filename))
+            self.sentences = self.make_corpus(os.path.join(app.SITE_ROOT, "./tmp/" + self.filename))
             self.make_model(self.filename)
 
             self.stopword_file = os.path.join(app.SITE_ROOT, 'data', 'long_stopwords.txt')
@@ -186,9 +203,19 @@ class Word2VecModel(UniModel):
     def get_word_vector(self, word):
         return self.model[word]
 
+    def get_top_words(self, amount=50):
+        return self.model.index2word[:amount]
+
+    def get_word_occurance(self, word):
+        return self.model.vocab[word]
+
     def save(self, model, filename):
         path = os.path.join(app.SITE_ROOT, 'models', "model_" + filename)
-        model.save_word2vec_format(path)
+        logging.warning("Saving...")
+        if model.wv == None:
+            model.save_word2vec_format(path)
+        else:
+            model.wv.save_word2vec_format(path)
 
     def load(self, filename):
         self.model = KeyedVectors.load_word2vec_format(filename)

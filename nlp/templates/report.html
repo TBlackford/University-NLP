@@ -36,7 +36,7 @@
                                 <hr>
                             </div>
 
-                            <div class="similarities" style="display:none;">
+                            <div class="most_similar" style="display:none;">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -45,7 +45,23 @@
                                             <th>Count</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="similarities_one">
+                                    <tbody id="most_similar_one">
+                                    </tbody>
+                                </table>
+
+                                <hr>
+                            </div>
+
+                            <div class="similarity" style="display:none;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>First Word</th>
+                                            <th>Second Word</th>
+                                            <th>Similarity %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="similarity_one">
                                     </tbody>
                                 </table>
 
@@ -79,7 +95,7 @@
                             </div>
 
 
-                            <div class="similarities" style="display:none;">
+                            <div class="most_similar" style="display:none;">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -88,7 +104,23 @@
                                             <th>Count</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="similarities_two">
+                                    <tbody id="most_similar_two">
+                                    </tbody>
+                                </table>
+
+                                <hr>
+                            </div>
+
+                            <div class="similarity" style="display:none;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>First Word</th>
+                                            <th>Second Word</th>
+                                            <th>Similarity %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="similarity_two">
                                     </tbody>
                                 </table>
 
@@ -116,7 +148,8 @@
         console.log(payload)
 
         var top50words = payload.top50words;
-        var similarities = payload.similarities;
+        var most_similar = payload.most_similar;
+        var similarities = payload.similarity;
 
         if( top50words ) {
             $('.top50words').css('display', 'block');
@@ -133,7 +166,7 @@
                     "<td>" + uni.list[j].occurrance + "</td></tr>";
                 }
 
-                if( i == 1 ) {
+                if( i == 0 ) {
                     $("#top50words_one").append(content);
                 } else {
                     $("#top50words_two").append(content);
@@ -142,30 +175,54 @@
             }
         }
 
-        if( similarities ) {
-            $('.similarities').css('display', 'block');
+        if( most_similar ) {
+            $('.most_similar').css('display', 'block');
 
-            var most_similar = similarities.most_similar;
+            // Get the similarities for each uni
+            var unis = most_similar.similar;
 
-            // Get the similarities
-            for(var i = 0; i < most_similar.length; i++) {
-                var uni = most_similar[i];
+            // Get the most similar words for each uni
+            for(var i = 0; i < unis.length; i++) {
+                var list = unis[i].list;
                 content = "";
 
-                // Add header for uni
-                for(var j = 0; j < uni.list.length; j++) {
+                // Get the list of similarities
+                for(var j = 0; j < list.length; j++) {
                     content += "<tr><th scope='row'>" + (j + 1) + "</th>" +
-                    "<td>" + uni.list[j].word + "</td>" +
-                    "<td>" + uni.list[j].similarity + "</td></tr>";
+                    "<td>" + list[j].word + "</td>" +
+                    "<td>" + list[j].similarity + "</td></tr>";
                 }
 
-                if( i == 1 ) {
-                    $("#similarities_one").append(content);
+                if( i == 0 ) {
+                    $("#most_similar_one").append(content);
                 } else {
-                    $("#similarities_two").append(content);
+                    $("#most_similar_two").append(content);
                 }
-                //$("#" + uni.name).append(content);
             }
+        }
+
+        if( similarities ) {
+            $('.similarity').css('display', 'block');
+
+            // Get the most similar words for each uni
+            for(var i = 0; i < similarities.length; i++) {
+                console.log("Similarities: ");
+                console.log(similarities);
+                content = "";
+
+                content += "<td>" + similarities[i].similarity.word1 + "</td>" +
+                    "<td>" + similarities[i].similarity.word2 + "</td>" +
+                    "<td>" + similarities[i].similarity.rate + "</td></tr>";
+
+                console.log(content);
+
+                if( i == 0 ) {
+                    $("#similarity_one").append(content);
+                } else {
+                    $("#similarity_two").append(content);
+                }
+            }
+
         }
 
     </script>

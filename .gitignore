@@ -118,3 +118,8 @@ htmlcov/
 
 # Windows
 Thumbs.db
+
+# Junk
+nlp/models
+nlp/tmp
+gensim/models/
