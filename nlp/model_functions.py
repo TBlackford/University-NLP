@@ -1,5 +1,5 @@
 from nlp import app, api, models
-import nltk, logging, json
+import nltk, logging, json, os
 
 #TODO: Make words most similar to single word function
 #TODO: Make percentage cosine similarity between two words function
@@ -25,12 +25,36 @@ def top50words(uni):
     common = frequency.most_common(50)
     common = [{"word": word, "occurrance": freq} for word, freq in common]"""
 
-    model = models.make_word2vec_model(uni)
+    path = "./top50words/" + uni
+    path = os.path.join(app.SITE_ROOT, path)
 
-    words = common = model.get_top_words()
-    common = [{"word": word, "occurrance": model.get_word_occurance(word).count} for word in words]
+    def _load_or_make():
+        # Check if the file exists
+        if os.path.isfile(path):
+            return _load()
+        else:
+            data = _make()
+            _save(data)
+            return data
 
-    return {"name": uni, "list": common}
+    def _load():
+        return json.load(open(path))
+
+    def _save(data):
+        with open(path, 'w') as outfile:
+            json.dump(data, outfile)
+
+    def _make():
+        model = models.make_word2vec_model(uni)
+
+        words = model.get_top_words()
+        common = [{"word": word, "occurrance": model.get_word_occurance(word).count} for word in words]
+
+        return common
+
+    data = _load_or_make()
+
+    return {"name": uni, "list": data}
 
 
 def most_similar(uni, positive, negative):
