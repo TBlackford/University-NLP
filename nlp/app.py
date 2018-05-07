@@ -4,6 +4,8 @@ import os
 
 webapp = Flask(__name__) # create the application instance
 
+# Double check that this is indeed working with BLAS.
+
 # Hacky way around the '/' not working.
 class Api(BaseApi):
 

@@ -1,8 +1,16 @@
 from flask import Flask, flash, redirect, url_for, render_template, make_response, request, send_file, json
 from flask_restplus import Resource, Namespace
-from nlp import app, api, models
+from nlp import app, api
+from nlp.models import *
 from nlp.model_functions import *
 import os, sys, logging
+import datetime
+import random
+import io
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.dates import DateFormatter
 from werkzeug.utils import secure_filename
 import warnings
 warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
@@ -13,6 +21,7 @@ import nltk
 
 ###################################################################################
 # Simple pages
+
 
 @app.webapp.route('/')
 def index_page():
@@ -63,6 +72,21 @@ def report_page():
 
         payload.update({"similarity": similar})
 
+
+    def _tsne():
+        words = data['tsne-visualisation']
+
+        words = words.replace(', ', ',').split(',')
+
+        url_string = "?words="
+
+        for word in words:
+            url_string += word + "+"
+
+        url_string = url_string[:-1]
+
+        payload.update({"image_string": url_string})
+
     def _do_check(func, item):
         if all(i in data for i in item):
             func()
@@ -91,7 +115,11 @@ def report_page():
         if len(unis) < 2:
             redirect('/')
         else:
-            logging.warning(data)
+
+            # Add unis to payload
+            payload.update({"universities": unis})
+
+            _do_check(_tsne, ['tsne-visualisation'])
 
             # Get the most similar words
             _do_check(_most_similar, ['most-similar'])
@@ -111,6 +139,7 @@ def upload_page():
     ALLOWED_EXTENSIONS = set(['txt', 'csv'])
     UPLOAD_FOLDER = '/tmp/'
     app.webapp.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.webapp.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 2014
 
     def allowed_file(filename):
         return '.' in filename and \
@@ -133,11 +162,59 @@ def upload_page():
 
         logging.warning("making model")
 
-        models.Word2VecModel(filename)
+        Word2VecModel(filename)
 
         return redirect(url_for('index_page'))
+
+
+@app.webapp.route("/img/tsne/<university>", methods=["GET"])
+def tnse_image(university=None):
+    words = request.args.get("words")
+
+    if university is not None and words is not None:
+        models = make_word2vec_model(university)
+        words = words.split(' ')
+        tsne_df = models.make_tsne(words)
+
+        fig = plt.figure()
+        ax = fig.add_subplot(1, 1, 1)
+        ax.scatter(tsne_df['x'], tsne_df['y'])
+
+        for i, txt in enumerate(tsne_df['word']):
+            ax.annotate(txt, (tsne_df['x'].iloc[i], tsne_df['y'].iloc[i]))
+
+        canvas=FigureCanvas(fig)
+        png_output = io.BytesIO()#
+        canvas.print_png(png_output)
+        response=make_response(png_output.getvalue())
+        response.headers['Content-Type'] = 'image/png'
+        return response
+
+
+@app.webapp.route("/simple.png")
+def simple_image():
+    fig=Figure()
+    ax=fig.add_subplot(111)
+    x=[]
+    y=[]
+    now=datetime.datetime.now()
+    delta=datetime.timedelta(days=1)
+    for i in range(10):
+        x.append(now)
+        now+=delta
+        y.append(random.randint(0, 1000))
+    ax.plot_date(x, y, '-')
+    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    fig.autofmt_xdate()
+    canvas=FigureCanvas(fig)
+    png_output = io.BytesIO()#
+    canvas.print_png(png_output)
+    response=make_response(png_output.getvalue())
+    response.headers['Content-Type'] = 'image/png'
+    return response
 
 
 @app.webapp.route('/universities')
 def show_uni_list():
     return render_template('university_list.html')
+

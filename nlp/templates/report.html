@@ -17,11 +17,12 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2><i class="fa fa-bars"></i> First University</h2>
+                            <h2><i class="fa fa-bars"></i> First University - {{ payload.universities[0] }}</h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <div class="top50words" style="display:none;">
+                                <h3>Top 50 Words</h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -37,6 +38,7 @@
                             </div>
 
                             <div class="most_similar" style="display:none;">
+                                <h3>Most Similar Words</h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -53,6 +55,7 @@
                             </div>
 
                             <div class="similarity" style="display:none;">
+                                <h3>Cosine Similarity Between Words </h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -67,6 +70,13 @@
 
                                 <hr>
                             </div>
+
+                            <div class="tsne" id="tsne_one" style="display:block;">
+                                <h3>TSNE Visualisation</h3>
+                                <img style="" src="/img/tsne/{{ payload.universities[0] }}{{ payload.image_string }}" />
+
+                                <hr>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,11 +84,12 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2><i class="fa fa-bars"></i> Second University</h2>
+                            <h2><i class="fa fa-bars"></i> Second University - {{ payload.universities[1] }}</h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <div class="top50words" style="display:none;">
+                                <h3>Top 50 Words</h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -96,6 +107,7 @@
 
 
                             <div class="most_similar" style="display:none;">
+                                <h3>Most Similar Words</h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -112,6 +124,7 @@
                             </div>
 
                             <div class="similarity" style="display:none;">
+                                <h3>Cosine Similarity Between Words </h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -123,6 +136,13 @@
                                     <tbody id="similarity_two">
                                     </tbody>
                                 </table>
+
+                                <hr>
+                            </div>
+
+                            <div class="tsne" id="tsne_two" style="display:block;">
+                                <h3>TSNE Visualisation</h3>
+                                <img style="" src="/img/tsne/{{ payload.universities[1] }}{{ payload.image_string }}" />
 
                                 <hr>
                             </div>
@@ -150,6 +170,8 @@
         var top50words = payload.top50words;
         var most_similar = payload.most_similar;
         var similarities = payload.similarity;
+
+        var universities = payload.universities;
 
         if( top50words ) {
             $('.top50words').css('display', 'block');

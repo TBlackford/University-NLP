@@ -11,6 +11,7 @@ import gensim
 from gensim.models.word2vec import Word2Vec
 from gensim.models.keyedvectors import KeyedVectors
 import re
+import pandas as pd
 
 # NLTK
 import nltk
@@ -207,7 +208,7 @@ class Word2VecModel(UniModel):
         return self.model.index2word[:amount]
 
     def get_word_occurance(self, word):
-        return self.model.vocab[word]
+        return self.model.vocab[word].count
 
     def save(self, model, filename):
         path = os.path.join(app.SITE_ROOT, 'models', "model_" + filename)
@@ -219,5 +220,27 @@ class Word2VecModel(UniModel):
 
     def load(self, filename):
         self.model = KeyedVectors.load_word2vec_format(filename)
-
         return self
+
+    def make_tsne(self, items):
+        def make_tsnse_dict(items):
+            d = {}
+            for item in items:
+                d[item] = self.model.vocab[item]
+            return d
+
+        d = make_tsnse_dict(items)
+
+        vocab = list(d)
+
+        X = self.model[vocab]
+
+        tsne = TSNE(perplexity=25, n_components=2, learning_rate=5, init='pca',random_state=3, n_iter=2000)
+        X_tsne = tsne.fit_transform(X)
+        df = pd.concat([pd.DataFrame(X_tsne),
+                        pd.Series(vocab)],
+                       axis=1)
+
+        df.columns = ['x', 'y', 'word']
+
+        return df

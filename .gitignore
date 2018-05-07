@@ -120,6 +120,6 @@ htmlcov/
 Thumbs.db
 
 # Junk
-nlp/models
-nlp/tmp
+nlp/models/
+nlp/tmp/
 gensim/models/
