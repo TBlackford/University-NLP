@@ -25,9 +25,17 @@ import nltk
 
 @app.webapp.route('/')
 def index_page():
-    path = os.path.join(app.SITE_ROOT, 'tmp')
+    files = []
 
-    files = os.listdir(path) # Somewhere, I need to open the file
+    path = os.path.join(app.SITE_ROOT, './data/data.json')
+
+    with open(path) as json_data:
+        d = json.load(json_data)
+
+        unis = d["universities"]
+
+        for uni in unis:
+            files.append(uni["rank"] + " - " + uni["name"])
 
     return render_template('index.html', files=files)
 
@@ -132,39 +140,6 @@ def report_page():
 
 
     return render_template('report.html', payload=payload)
-
-
-@app.webapp.route('/upload', methods=['POST'])
-def upload_page():
-    ALLOWED_EXTENSIONS = set(['txt', 'csv'])
-    UPLOAD_FOLDER = '/tmp/'
-    app.webapp.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.webapp.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 2014
-
-    def allowed_file(filename):
-        return '.' in filename and \
-               filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-    # check if the post request has the file part
-    if 'file' not in request.files:
-        # flash('No file part')
-        return redirect(request.url)
-    file = request.files['file']
-    # if user does not select file, browser also
-    # submit a empty part without filename
-    if file.filename == '':
-        flash('No selected file')
-        return redirect(request.url)
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        # Save the raw file to the tmp directory
-        file.save(os.path.join(app.SITE_ROOT, 'tmp', filename))
-
-        logging.warning("making model")
-
-        Word2VecModel(filename)
-
-        return redirect(url_for('index_page'))
 
 
 @app.webapp.route("/img/tsne/<university>", methods=["GET"])

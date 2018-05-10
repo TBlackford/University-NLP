@@ -186,47 +186,35 @@ class Word2VecModel(UniModel):
         # Make a Word2Vec model
         model = Word2Vec(list(self.sentences), size=100, window=5, min_count=1, workers=4, hs=1, negative=0)
 
-        if save_model:
-            # Save the model
-            self.save(model, filename)
-
         if store_model:
             # Store model in memory
             self.model = model
 
     def get_most_similar(self, positive, negative):
         logging.warning(type(self.model))
-        return self.model.most_similar(positive, negative)
+        return self.model.wv.most_similar(positive, negative)
 
     def similarity(self, word1, word2):
-        return self.model.similarity(word1, word2)
+        return self.model.wv.similarity(word1, word2)
 
     def get_word_vector(self, word):
-        return self.model[word]
+        return self.model.wv.vocab[word]
 
     def get_top_words(self, amount=50):
-        return self.model.index2word[:amount]
+        return self.model.wv.index2word[:amount]
 
     def get_word_occurance(self, word):
-        return self.model.vocab[word].count
-
-    def save(self, model, filename):
-        path = os.path.join(app.SITE_ROOT, 'models', "model_" + filename)
-        logging.warning("Saving...")
-        if model.wv == None:
-            model.save_word2vec_format(path)
-        else:
-            model.wv.save_word2vec_format(path)
+        return self.model.wv.vocab[word].count
 
     def load(self, filename):
-        self.model = KeyedVectors.load_word2vec_format(filename)
+        self.model = gensim.models.Word2Vec.load(filename)
         return self
 
     def make_tsne(self, items):
         def make_tsnse_dict(items):
             d = {}
             for item in items:
-                d[item] = self.model.vocab[item]
+                d[item] = self.model.wv.vocab[item]
             return d
 
         d = make_tsnse_dict(items)

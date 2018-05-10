@@ -1,250 +1,301 @@
 {"universities": [{
     "name": "Princeton University",
     "rank": "1",
-    "website": "https://www.princeton.edu/"
+    "website": "https://www.princeton.edu/",
+    "model": "princeton"
 },
 {
     "name": "Harvard University",
     "rank": "2",
-    "website": "http://www.harvard.edu/"
+    "website": "http://www.harvard.edu/",
+    "model": "harvard"
+
 },
 {
     "name": "University of Chicago",
     "rank": "3",
-    "website": "http://www.uchicago.edu/"
+    "website": "http://www.uchicago.edu/",
+    "model": "uchicago"
 },
 {
     "name": "Yale University",
     "rank": "4",
-    "website": "https://www.yale.edu/"
+    "website": "https://www.yale.edu/",
+    "model": "yale"
 },
 {
     "name": "Columbia University",
     "rank": "5",
-    "website": "http://www.columbia.edu/"
+    "website": "http://www.columbia.edu/",
+    "model": "columbia"
 },
 {
     "name": "Stanford University",
     "rank": "6",
-    "website": "https://www.stanford.edu/"
+    "website": "https://www.stanford.edu/",
+    "model": "stanford"
 },
 {
     "name": "Massachusetts Institute of Technology",
     "rank": "7",
-    "website": "http://web.mit.edu/"
+    "website": "http://web.mit.edu/",
+    "model": "mit"
 },
 {
     "name": "Duke University",
     "rank": "8",
-    "website": "https://www.duke.edu/"
+    "website": "https://www.duke.edu/",
+    "model": "duke"
 },
 {
     "name": "University of Pennsylvania",
     "rank": "9",
-    "website": "http://www.upenn.edu/"
+    "website": "http://www.upenn.edu/",
+    "model": "upenn"
 },
 {
     "name": "Johns Hopkins University",
     "rank": "10",
-    "website": "https://www.jhu.edu/"
+    "website": "https://www.jhu.edu/",
+    "model": "jhu"
 },
 {
     "name": "Dartmouth College",
     "rank": "11",
-    "website": "http://dartmouth.edu/"
+    "website": "http://dartmouth.edu/",
+    "model": "dartmouth"
 },
 {
     "name": "California Institute of Technology",
     "rank": "12",
-    "website": "http://www.caltech.edu/"
+    "website": "http://www.caltech.edu/",
+    "model": "caltech"
 },
 {
     "name": "Northwestern University",
     "rank": "13",
-    "website": "http://www.northwestern.edu/"
+    "website": "http://www.northwestern.edu/",
+    "model": "northwestern"
 },
 {
     "name": "Brown University",
     "rank": "14",
-    "website": "http://www.brown.edu/"
+    "website": "http://www.brown.edu/",
+    "model": "brown"
 },
 {
     "name": "Cornell University",
     "rank": "15",
-    "website": "https://www.cornell.edu/"
+    "website": "https://www.cornell.edu/",
+    "model": "cornell"
 },
 {
     "name": "Rice University",
     "rank": "16",
-    "website": "http://www.rice.edu/"
+    "website": "http://www.rice.edu/",
+    "model": "rice"
 },
 {
     "name": "University of Notre Dame",
     "rank": "17",
-    "website": "https://www.nd.edu/"
+    "website": "https://www.nd.edu/",
+    "model": "nd"
 },
 {
     "name": "Vanderbilt University",
     "rank": "18",
-    "website": "https://www.vanderbilt.edu/"
+    "website": "https://www.vanderbilt.edu/",
+    "model": "vanderbilt"
 },
 {
     "name": "Washington University in St. Louis",
     "rank": "19",
-    "website": "https://wustl.edu/"
+    "website": "https://wustl.edu/",
+    "model": "wustl"
 },
 {
     "name": "Emory University",
     "rank": "20",
-    "website": "http://www.emory.edu/"
+    "website": "http://www.emory.edu/",
+    "model": "emory"
 },
 {
     "name": "Georgetown University",
     "rank": "21",
-    "website": "https://www.georgetown.edu/"
+    "website": "https://www.georgetown.edu/",
+    "model": "georgetown"
 },
 {
     "name": "University of California Berkeley",
     "rank": "22",
-    "website": "http://www.berkeley.edu/"
+    "website": "http://www.berkeley.edu/",
+    "model": "berkeley"
 },
 {
     "name": "University of Southern California",
     "rank": "23",
-    "website": "https://www.usc.edu/"
+    "website": "https://www.usc.edu/",
+    "model": "usc"
 },
 {
     "name": "Carnegie Mellon University",
     "rank": "24",
-    "website": "http://www.cmu.edu/"
+    "website": "http://www.cmu.edu/",
+    "model": "cmu"
 },
 {
     "name": "University of California Los Angeles",
     "rank": "25",
-    "website": "http://www.ucla.edu/"
+    "website": "http://www.ucla.edu/",
+    "model": "ucla"
 },
 {
     "name": "University of Virginia",
     "rank": "26",
-    "website": "http://www.virginia.edu/"
+    "website": "http://www.virginia.edu/",
+    "model": "virginia"
 },
 {
     "name": "Tufts University",
     "rank": "27",
-    "website": "https://www.tufts.edu/"
+    "website": "https://www.tufts.edu/",
+    "model": "tufts"
 },
 {
     "name": "University of Michigan - Ann Arbor",
     "rank": "28",
-    "website": "https://www.umich.edu/"
+    "website": "https://www.umich.edu/",
+    "model": "umich"
 },
 {
     "name": "Wake Forest University",
     "rank": "29",
-    "website": "http://www.wfu.edu/"
+    "website": "http://www.wfu.edu/",
+    "model": "wfu"
 },
 {
     "name": "University of North Carolina Chapel Hill",
     "rank": "30",
-    "website": "http://www.unc.edu/"
+    "website": "http://www.unc.edu/",
+    "model": "unc"
 },
 {
     "name": "Boston College",
     "rank": "31",
-    "website": "http://www.bc.edu/"
+    "website": "http://www.bc.edu/",
+    "model": "bc"
 },
 {
     "name": "College of William and Mary",
     "rank": "32",
-    "website": "http://www.wm.edu/"
+    "website": "http://www.wm.edu/",
+    "model": "wm"
 },
 {
     "name": "University of Rochester",
     "rank": "33",
-    "website": "https://www.rochester.edu/"
+    "website": "https://www.rochester.edu/",
+    "model": "rochester"
 },
 {
     "name": "Brandeis University",
     "rank": "34",
-    "website": "https://www.brandeis.edu/"
+    "website": "https://www.brandeis.edu/",
+    "model": "brandeis"
 },
 {
     "name": "Georgia Institute of technology",
     "rank": "35",
-    "website": "http://www.gatech.edu/"
+    "website": "http://www.gatech.edu/",
+    "model": "gatech"
 },
 {
     "name": "New York University",
     "rank": "36",
-    "website": "https://www.nyu.edu/"
+    "website": "https://www.nyu.edu/",
+    "model": "nyu"
 },
 {
     "name": "Case Western Reserve University",
     "rank": "37",
-    "website": "http://case.edu/"
+    "website": "http://case.edu/",
+    "model": "case"
 },
 {
     "name": "University of California Santa Barbara",
     "rank": "38",
-    "website": "http://www.ucsb.edu/"
+    "website": "http://www.ucsb.edu/",
+    "model": "ucsb"
 },
 {
     "name": "Boston University",
     "rank": "39",
-    "website": "http://www.bu.edu/"
+    "website": "http://www.bu.edu/",
+    "model": "bu"
 },
 {
     "name": "Northeastern University",
     "rank": "40",
-    "website": "http://www.northeastern.edu/"
+    "website": "http://www.northeastern.edu/",
+    "model": "northeastern"
 },
 {
     "name": "Rensselaer Polytechnic Institute",
     "rank": "41",
-    "website": "http://rpi.edu/"
+    "website": "http://rpi.edu/",
+    "model": "rpi"
 },
 {
     "name": "Tulane University",
     "rank": "42",
-    "website": "https://tulane.edu/"
+    "website": "https://tulane.edu/",
+    "model": "tulane"
 },
 {
     "name": "University of California - Irvine",
     "rank": "43",
-    "website": "http://www.cui.edu/"
+    "website": "http://www.cui.edu/",
+    "model": "uci"
 },
 {
     "name": "Lehigh University",
     "rank": "44",
-    "website": "https://www1.lehigh.edu/"
+    "website": "https://www1.lehigh.edu/",
+    "model": "lehigh"
 },
 {
     "name": "University of California - Davis",
     "rank": "45",
-    "website": "https://www.ucdavis.edu/"
+    "website": "https://www.ucdavis.edu/",
+    "model": "ucdavis"
 },
 {
     "name": "University of California - San Diego",
     "rank": "46",
-    "website": "https://ucsd.edu/"
+    "website": "https://ucsd.edu/",
+    "model": "ucsd"
 },
 {
     "name": "University of Illinois - Urbana-Champaign",
     "rank": "47",
-    "website": "http://illinois.edu/"
+    "website": "http://illinois.edu/",
+    "model": "illinois"
 },
 {
     "name": "University of Miami",
     "rank": "48",
-    "website": "http://miami.edu/"
+    "website": "http://miami.edu/",
+    "model": "miami"
 },
 {
     "name": "University of Wisconsin - Madison",
     "rank": "49",
-    "website": "http://www.wisc.edu/"
+    "website": "http://www.wisc.edu/",
+    "model": "wisc"
 },
 {
     "name": "Pennsylvania State University - University Park",
     "rank": "50",
-    "website": "http://www.psu.edu/"
+    "website": "http://www.psu.edu/",
+    "model": "psu"
 }]}
