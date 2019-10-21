@@ -20,7 +20,7 @@ Jinja2==2.10
 jmespath==0.9.3
 jsonschema==2.6.0
 MarkupSafe==1.0
-nltk==3.2.5
+nltk==3.4.5
 numpy==1.14.2
 psutil==5.4.3
 pyte==0.8.0
