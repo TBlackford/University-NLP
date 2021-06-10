@@ -9,7 +9,7 @@ click==6.7
 colorama==0.3.9
 Cython==0.28.1
 decorator==4.2.1
-Django==2.0.2
+Django==2.2.24
 docutils==0.14
 Flask==0.12.2
 flask-restplus==0.10.1
