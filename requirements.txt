@@ -21,7 +21,7 @@ jmespath==0.9.3
 jsonschema==2.6.0
 MarkupSafe==1.0
 nltk==3.2.5
-numpy==1.14.2
+numpy==1.22.0
 psutil==5.4.3
 pyte==0.8.0
 python-dateutil==2.6.1
